@@ -6,11 +6,36 @@
     <meta name="viewport" content="width=device-width">
     <title>2600 Cheltenham</title>
     <link href="index_files/style.css" rel="stylesheet" type="text/css">
+    <script>
+	//Thanks to ChatGPT (and Noel Edmonds) for the below    
+	function bobM() {
+  	  const today = new Date();
+	  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+	  const daysUntilFriday = (5 - nextMonth.getDay() + 7) % 7;
+	  const fridayDate = new Date(nextMonth.getTime() + (daysUntilFriday * 24 * 60 * 60 * 1000));
+	  const shortMonth = fridayDate.toLocaleString('default', { month: 'short' });
+	  const date = fridayDate.getDate();
+	  document.forms['johnvirgo']['topPara'].value = "@2600Cheltenham\n\n18:30, FRI " + date + getOrdinalSuffix(date) + " " + shortMonth.toUpperCase() + " \nTHE BAYSHILL INN, CHELTENHAM";
+	  document.getElementById("bottomParaDate").innerHTML = "Friday " + date + getOrdinalSuffix(date) + " " + shortMonth
+	}   
+	function getOrdinalSuffix(day) {
+  		if (day >= 11 && day <= 13) {
+    			return 'th';
+  		}
+  		switch (day % 10) {
+    			case 1: return 'st';
+    			case 2: return 'nd';
+    			case 3: return 'rd';
+    			default: return 'th';
+  		}
+	}
+	
+    </script>	    
   </head>
-  <body onload="text = $('#input').val().split('');generate()">
+  <body onload="bobM();text = $('#input').val().split('');generate()">
 		<div class="display"></div>
-		<div class="controls" style="display: none;">
-			<textarea rows="6" cols="20" maxlength="400" id="input" wrap="hard">@2600Cheltenham
+		<div class="controls" style="display: none;"><form name="johnvirgo" id="johnvirgo">
+			<textarea rows="6" cols="20" maxlength="400" id="input" wrap="hard" id="topPara" name="topPara">@2600Cheltenham
 
 18:30, FRI 7th APR 
 THE BAYSHILL INN, CHELTENHAM</textarea>
@@ -18,10 +43,10 @@ THE BAYSHILL INN, CHELTENHAM</textarea>
 				<button id="update">Update</button>
 				<button id="uppercase">Uppercase</button>
 			</div>
-		</div>
+		</div></form>
 		<script src="index_files/cash.min.js"></script>
 		<script src="index_files/howler.min.js"></script>
 	<!-- Thanks to: https://splitflap.vandesm14.repl.co/-->
     <script src="index_files/script.js"></script>
-  <br /><br /><p style="font-family: courier new; color: white; text-align: center">2600 Cheltenham<br/><br/>18:30 7th April 2023<br /><br />The Bayshill Inn, Cheltenham<br /><br /><br />Twitter: <a href="https://twitter.com/2600Cheltenham">@2600Cheltenham</a></p>
+  <br /><br /><p style="font-family: courier new; color: white; text-align: center" id="bottomPara">2600 Cheltenham<br/><br/>18:30 <span id="bottomParaDate">FIRST FRIDAY OF EVERY MONTH</span><br /><br />The Bayshill Inn, Cheltenham<br /><br /><br />Twitter: <a href="https://twitter.com/2600Cheltenham">@2600Cheltenham</a></p>
 </body></html>
