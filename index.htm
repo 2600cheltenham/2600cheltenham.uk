@@ -9,26 +9,21 @@
     <script>
 	//Thanks to ChatGPT (and Noel Edmonds) for the below    
 	function bobM() {
-  	  const today = new Date();
-	  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-	  const daysUntilFriday = (5 - nextMonth.getDay() + 7) % 7;
-	  const fridayDate = new Date(nextMonth.getTime() + (daysUntilFriday * 24 * 60 * 60 * 1000));
+  	  var today = new Date();
+	  var thisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+	  var daysUntilFriday = (5 - thisMonth.getDay() + 7) % 7;
+	  var nextFridayDate = new Date(thisMonth.getTime() + (daysUntilFriday * 24 * 60 * 60 * 1000));
+	  if(today.setHours(0, 0, 0, 0) > nextFridayDate){
+		  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+		  const daysUntilFriday = (5 - nextMonth.getDay() + 7) % 7;
+		  nextFridayDate = new Date(nextMonth.getTime() + (daysUntilFriday * 24 * 60 * 60 * 1000));
+	  }
+	  const fridayDate = nextFridayDate
 	  const shortMonth = fridayDate.toLocaleString('default', { month: 'short' });
 	  const date = fridayDate.getDate();
 	  document.forms['johnvirgo']['topPara'].value = "@2600Cheltenham\n\n18:30, FRI " + date + getOrdinalSuffix(date) + " " + shortMonth.toUpperCase() + " \nTHE BAYSHILL INN, CHELTENHAM";
 	  document.getElementById("bottomParaDate").innerHTML = "Friday " + date + getOrdinalSuffix(date) + " " + shortMonth
-	}   
-	function getOrdinalSuffix(day) {
-  		if (day >= 11 && day <= 13) {
-    			return 'th';
-  		}
-  		switch (day % 10) {
-    			case 1: return 'st';
-    			case 2: return 'nd';
-    			case 3: return 'rd';
-    			default: return 'th';
-  		}
-	}
+	}  
 	
     </script>	    
   </head>
